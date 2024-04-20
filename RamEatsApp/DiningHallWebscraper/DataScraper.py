@@ -28,6 +28,7 @@ active_meal = soup.find("div", {"class": "c-tab is-active"})
 active_menu_stations = active_meal.find_all("div", {"class": "menu-station"})
 
 menu_stations = []
+final_cleaned_data = []
 
 for station in active_menu_stations:
     station_menu_items = []
@@ -36,11 +37,8 @@ for station in active_menu_stations:
         current_dish = {}
         current_dish[dish.find("a").text] = dish.find("a")['data-recipe']
         station_menu_items.append(current_dish)
+        final_cleaned_data.append({"Name": dish.find("a").text, "StationName": station.find("h4").text})
     menu_stations.append({station.find("h4").text: station_menu_items})
-    try:
-        supabase.table("Menu").insert({"StationName":station}).execute()
-    except:
-        supabase.table("Menu").insert({"StationName":"None"}).execute()
 
 recipes = []
 
