@@ -4,6 +4,7 @@ from flask_cors import CORS
 #from cachelib.file import FileSystemCache
 from supabase import create_client
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 import json
 
@@ -214,9 +215,32 @@ def calcMeals():
     menu_data = supabase.table('Menu').select("*").execute()
     menu = menu_data.data
 
-    #TODO: Fix scraper, Figure out Breakfast, Lunch, Dinner?
-    #Calculate Meal
-    
+    # Get current time
+    now = datetime.now()
+    current_time = now.time()
+
+    # Define time ranges for breakfast, lunch, and dinner
+    breakfast_start = datetime.strptime('07:00:00', '%H:%M:%S').time()
+    breakfast_end = datetime.strptime('10:45:00', '%H:%M:%S').time()
+
+    lunch_start = datetime.strptime('11:00:00', '%H:%M:%S').time()
+    lunch_end = datetime.strptime('14:00:00', '%H:%M:%S').time()
+
+    dinner_start = datetime.strptime('17:00:00', '%H:%M:%S').time()
+    dinner_end = datetime.strptime('20:00:00', '%H:%M:%S').time()
+
+    menu_data = supabase.table('Menu').select("*").execute()
+    menu = menu_data.data
+
+    # Calculate Meal based on current time
+    if breakfast_start <= current_time <= breakfast_end:
+        menu = supabase.table('Menu').select('*').eq('The Kitchen Table').execute()
+    elif lunch_start <= current_time <= lunch_end:
+        menu = supabase.table('Menu').select('*').eq('Simply Prepared Grill').execute()
+    elif dinner_start <= current_time <= dinner_end:
+        menu = supabase.table('Menu').select('*').eq('Simply Prepared Grill').execute()
+
+
         # Sort menu items by calories (ascending order)
     sorted_menu = sorted(menu, key=lambda x: x["Calories"])
 
