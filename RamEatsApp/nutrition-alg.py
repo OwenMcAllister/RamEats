@@ -41,7 +41,7 @@ def calculate_meals(menu):
                         portion = 2.0
 
                 # Add adjusted item to the selected list
-                selected_items.append({"Name": info["Name"], "portion": portion})
+                selected_items.append((info["Name"], portion))
                 total_calories += info["calories"] * portion
                 total_protein += info["protein"] * portion
                 total_carbs += info["total carbohydrate"] * portion
@@ -50,52 +50,61 @@ def calculate_meals(menu):
         else:
             break  # Stop adding items if the next item would exceed the calorie limit
 
+    # Check if there are remaining calories to prioritize items with more protein
+    remaining_calories = meal_cal_upper - total_calories
+    if remaining_calories > 0:
+        sorted_items = sorted(selected_items, key=lambda x: next(item for item in menu if item["Name"] == x[0])["protein"], reverse=True)
+        for item, portion in sorted_items:
+            if remaining_calories >= next(info for info in menu if info["Name"] == item)["calories"]:
+                # Find the item in the selected_items list and update its portion
+                for i, (selected_item, selected_portion) in enumerate(selected_items):
+                    if selected_item == item:
+                        selected_items[i] = (selected_item, selected_portion + 1.0)
+                        total_calories += next(info for info in menu if info["Name"] == item)["calories"]
+                        total_protein += next(info for info in menu if info["Name"] == item)["protein"]
+                        total_carbs += next(info for info in menu if info["Name"] == item)["total carbohydrate"]
+                        total_fats += next(info for info in menu if info["Name"] == item)["total fat"]
+                        remaining_calories -= next(info for info in menu if info["Name"] == item)["calories"]
+                        break
+
     # Adjust total calories to be within the specified upper and lower bounds
     if total_calories > meal_cal_upper:
         excess_calories = total_calories - meal_cal_upper
-        for i, item_info in enumerate(selected_items):
-            if excess_calories <= 0:
-                break
-            item = next((x for x in menu if x["Name"] == item_info["Name"]), {})
-            item_calories = item.get("calories", 0) * item_info["portion"]
+        for i, (item, portion) in enumerate(selected_items):
+            item_calories = next(info for info in menu if info["Name"] == item)["calories"] * portion
             if item_calories >= excess_calories:
                 # Reduce the portion of this item
-                reduction = excess_calories / item.get("calories", 0)
-                selected_items[i]["portion"] -= reduction
+                reduction = excess_calories / next(info for info in menu if info["Name"] == item)["calories"]
+                selected_items[i] = (item, portion - reduction)
                 total_calories -= excess_calories
                 break
             else:
                 # Remove this item entirely
                 excess_calories -= item_calories
                 total_calories -= item_calories
-                selected_items[i]["portion"] = 0.0
+                selected_items[i] = (item, 0.0)
 
     elif total_calories < meal_cal_lower:
         shortfall_calories = meal_cal_lower - total_calories
-        for i, item_info in enumerate(selected_items):
-            if shortfall_calories <= 0:
-                break
-            item = next((x for x in menu if x["Name"] == item_info["Name"]), {})
-            item_calories = item.get("calories", 0) * item_info["portion"]
+        for i, (item, portion) in enumerate(selected_items):
+            item_calories = next(info for info in menu if info["Name"] == item)["calories"] * portion
             if item_calories <= shortfall_calories:
                 # Increase the portion of this item
-                increase = shortfall_calories / item.get("calories", 0)
-                selected_items[i]["portion"] += increase
+                increase = shortfall_calories / next(info for info in menu if info["Name"] == item)["calories"]
+                selected_items[i] = (item, portion + increase)
                 total_calories += shortfall_calories
                 break
-            elif item_info["portion"] < 2.0:
-                # Add another serving of this item
-                additional_calories = item.get("calories", 0)
-                selected_items.append({"Name": item_info["Name"], "portion": 1.0})
-                shortfall_calories -= additional_calories
-                total_calories += additional_calories
 
-    # Return data as JSON
-    result = {
-        "selected_items": selected_items,
-        "total_calories": total_calories,
-        "total_protein": total_protein,
-        "total_carbs": total_carbs,
-        "total_fats": total_fats
-    }
-    return json.dumps(result)
+    return selected_items, total_calories, total_protein, total_carbs, total_fats
+
+print(calculate_meals(menu))
+
+# Return data as JSON
+# result = {
+#     "selected_items": selected_items,
+#     "total_calories": total_calories,
+#     "total_protein": total_protein,
+#     "total_carbs": total_carbs,
+#     "total_fats": total_fats
+# }
+# print(json.dumps(result))
