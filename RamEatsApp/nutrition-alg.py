@@ -11,7 +11,7 @@ def calculate_meals(menu):
     sorted_menu = sorted(menu, key=lambda x: x["calories"])
 
     # Define meal and macronutrient goals
-    meal_cal = 700
+    meal_cal = 1000
     meal_cal_lower = meal_cal - 50
     meal_cal_upper = meal_cal + 50
     protein_goal = 0.24 * meal_cal_upper
