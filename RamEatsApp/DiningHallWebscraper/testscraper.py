@@ -1,23 +1,27 @@
 # Scraper Imports
-import requests
-import json
-import re
+import requests, json, re
 from bs4 import BeautifulSoup
+
+
 from dotenv import load_dotenv
 from supabase import create_client
 import os
 
-# Initialize Supabase
+# Load environment variables from .env file
 load_dotenv()
-url = os.environ.get("SUPABASE_URL")
-key = os.environ.get("SUPABASE_KEY")
+
+# Get Supabase URL and key from environment variables
+url = os.getenv("SUPABASE_URL")
+key = os.getenv("SUPABASE_KEY")
+
+# Create Supabase client
 supabase = create_client(url, key)
 
 # Define the table name in Supabase
-table_name = "TestMenu"
+TABLE_NAME = "TestMenu"
 
-# Clear existing data in the table (optional, remove if not needed)
-supabase.table(table_name).delete().execute()
+#TODO: Check if this line work as it is supposed to clear existing data in the table
+supabase.table(TABLE_NAME).delete().execute()
 
 # Scrape Data
 url = "https://dining.unc.edu/locations/chase/"
@@ -28,7 +32,7 @@ soup = BeautifulSoup(html, "html.parser")
 active_meal = soup.find("div", {"class": "c-tab is-active"})
 active_menu_stations = active_meal.find_all("div", {"class": "menu-station"})
 
-menu_items = []
+menu_stations = []
 
 for station in active_menu_stations:
     station_name = station.find("h4").text.strip()
@@ -36,15 +40,15 @@ for station in active_menu_stations:
     for item in station_items:
         item_name = item.find("a").text.strip()
         item_recipe = item.find("a")['data-recipe']
-        menu_items.append({"Station": station_name, "Name": item_name, "Recipe": item_recipe})
+        menu_stations.append({"Station": station_name, "Name": item_name, "Recipe": item_recipe})
         try:
-            supabase.table(table_name).insert({"StationName": station_name}).execute()
+            supabase.table(TABLE_NAME).insert({"StationName": station_name}).execute()
         except:
-            supabase.table(table_name).insert({"StationName": "None"}).execute()
+            supabase.table(TABLE_NAME).insert({"StationName": "None"}).execute()
 
 recipes = []
 
-for item in menu_items:
+for item in menu_stations:
     url = "https://dining.unc.edu/wp-content/themes/nmc_dining/ajax-content/recipe.php?recipe=" + item["Recipe"]
     recipes.append(url)
 
@@ -65,7 +69,7 @@ for entry in soups:
 # Loop over every menu item
 all_soups = []
 
-for current_soup, item in zip(html_recipes, menu_items):
+for current_soup, item in zip(html_recipes, menu_stations):
     station_name = item["Station"]
     item_name = item["Name"]
     nutrition_rows = current_soup.find_all("tr")
@@ -97,4 +101,4 @@ for item in all_soups:
 
 # Insert data into Supabase
 for item in formatted_data:
-    supabase.table(table_name).insert(item).execute()
+    supabase.table(TABLE_NAME).insert(item).execute()
