@@ -95,16 +95,13 @@ def calculate_meals(menu):
                 total_calories += shortfall_calories
                 break
 
-    return selected_items, total_calories, total_protein, total_carbs, total_fats
 
-print(calculate_meals(menu))
-
-# Return data as JSON
-# result = {
-#     "selected_items": selected_items,
-#     "total_calories": total_calories,
-#     "total_protein": total_protein,
-#     "total_carbs": total_carbs,
-#     "total_fats": total_fats
-# }
-# print(json.dumps(result))
+    # Return data as JSON
+    result = {
+        "selected_items": selected_items,
+        "total_calories": total_calories,
+        "total_protein": total_protein,
+        "total_carbs": total_carbs,
+        "total_fats": total_fats
+    }
+    print(json.dumps(result))
