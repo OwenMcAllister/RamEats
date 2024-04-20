@@ -1,0 +1,22 @@
+.topbar {
+    background: #88C6FF;
+    border-bottom: 1px solid whitesmoke;
+    width: 100vw;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+
+    h1 {
+        color: whitesmoke;
+        padding-left: 5%;
+        margin-right: auto;
+    }
+
+    img {
+        padding-right: 5%;
+        margin-left: auto;
+    }
+}

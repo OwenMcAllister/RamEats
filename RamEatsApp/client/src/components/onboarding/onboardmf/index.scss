@@ -1,0 +1,25 @@
+.onboard-mf-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            margin-top: 10px;
+            color: #88C6FF;
+            background-color: whitesmoke;
+            border: 0;
+            padding: 10px 0px;
+            font-size: xx-large;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 3px 3px 1px;
+        }
+    }
+}

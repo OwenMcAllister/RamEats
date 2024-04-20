@@ -1,0 +1,33 @@
+.bottom-nav {
+  background: #88C6FF;
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  border-top: 1px solid whitesmoke;
+
+  nav {
+    height: 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 75px;
+    justify-content: space-evenly;
+    a {
+      padding: 15px 20px;
+      svg {
+        flex-basis: content;
+        flex-grow: 1;
+        min-width: 0;
+        color: black;
+        height: 100%;
+      }
+    }
+    a.active {
+      svg {
+        color: whitesmoke;
+      }
+    }
+  }
+}
