@@ -9,6 +9,7 @@ const Home = () => {
         total_carbs: 0,
         total_fats: 0,
     });
+    const [loading, setLoading] = useState(true);
 
     // Using useEffect for single rendering
     useEffect(() => {
@@ -24,23 +25,29 @@ const Home = () => {
                     total_carbs: data.total_carbs,
                     total_fats: data.total_fats,
                 });
+                setLoading(false);
             })
         );
     }, []);
 
-    const listItems = data.selected_items.map((item, index) => (
-        <li key={index}>
-        <p>
-            <b>{item[0]}:</b> {item[1]}
-        </p>
-        </li>
-    ));
+    // if (!loading) {
+    //     const listItems = data.selected_items.map((item, index) => (
+    //         <li key={index}>
+    //         <p>
+    //             <b>{item[0]}:</b> {item[1]}
+    //         </p>
+    //         </li>
+    //     ));
+    // }
+
+    
 
     return (
         <>
             <div className='container home-page'>
                 {/* Calling a data from setdata for showing */}
-                <ul>{listItems}</ul>
+                {/* <ul>{listItems}</ul> */}
+                {/* <ul>{data.selected_items.map((item, index) => (<li key={index}><p><b>{item[0]}:</b> {item[1]}</p></li>))}</ul> */}
                 <p>Total Calories: {data.total_calories}</p>
                 <p>Total Protein: {data.total_protein}g</p>
                 <p>Total Carbs: {data.total_carbs}g</p>
