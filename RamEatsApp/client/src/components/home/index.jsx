@@ -32,6 +32,7 @@ const Home = () => {
                     </p>
                     </li>
                 )));
+                console.log(data)
             })
         );
     }, []);
