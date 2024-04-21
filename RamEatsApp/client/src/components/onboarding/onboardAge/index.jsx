@@ -40,18 +40,16 @@ const OnBoardAge = () => {
     return (
         <>
             <p>Age</p>
-            <div>
-                <label htmlFor='age'>years.</label> 
-                <input 
-                    type='number' 
-                    name='age' 
-                    id='age'
-                    value={age} 
-                    onChange={(e) => setWeight(e.target.value)} 
-                    required 
-                />
-                <button className='next' onClick={handleNextClick}>Next</button>
-            </div>
+            <label htmlFor='age'>years.</label> 
+            <input 
+                type='number' 
+                name='age' 
+                id='age'
+                value={age} 
+                onChange={(e) => setWeight(e.target.value)} 
+                required 
+            />
+            <button className='next' onClick={handleNextClick}>Next</button>
         </>
     );
 }

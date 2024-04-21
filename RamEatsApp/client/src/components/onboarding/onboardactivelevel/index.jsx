@@ -40,18 +40,16 @@ const OnBoardCalories = () => {
     return (
         <>
             <p>Approximately how many calories do you burn per day?</p>
-            <div>
-                <label htmlFor='Calories'>kcal.</label> 
-                <input 
-                    type='number' 
-                    name='calories' 
-                    id='calories'
-                    value={calories} 
-                    onChange={(e) => setCalories(e.target.value)} 
-                    required 
-                />
-                <button className='next' onClick={handleNextClick}>Next</button>
-            </div>
+            <label htmlFor='Calories'>kcal.</label> 
+            <input 
+                type='number' 
+                name='calories' 
+                id='calories'
+                value={calories} 
+                onChange={(e) => setCalories(e.target.value)} 
+                required 
+            />
+            <button className='next' onClick={handleNextClick}>Next</button>
         </>
     );
 }

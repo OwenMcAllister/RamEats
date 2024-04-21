@@ -41,28 +41,26 @@ const OnBoardHeight = () => {
 
     return (
         <>
-            <div className='onboard-height'>
-                <p>Height</p>
-                <label htmlFor='feet'>Ft.</label> 
-                <input 
-                    type='number' 
-                    name='feet' 
-                    id='feet' 
-                    required 
-                    value={feet} 
-                    onChange={(e) => setFeet(e.target.value)}
-                />
-                <label htmlFor='inches'>In.</label> 
-                <input 
-                    type='number' 
-                    name='inches' 
-                    id='inches' 
-                    required 
-                    value={inches} 
-                    onChange={(e) => setInches(e.target.value)}
-                />
-                <button className='next' onClick={handleNextClick}>Next</button>
-            </div>
+            <p>Height</p>
+            <label htmlFor='feet'>Ft.</label> 
+            <input 
+                type='number' 
+                name='feet' 
+                id='feet' 
+                required 
+                value={feet} 
+                onChange={(e) => setFeet(e.target.value)}
+            />
+            <label htmlFor='inches'>In.</label> 
+            <input 
+                type='number' 
+                name='inches' 
+                id='inches' 
+                required 
+                value={inches} 
+                onChange={(e) => setInches(e.target.value)}
+            />
+            <button className='next' onClick={handleNextClick}>Next</button>
         </>
     );
 }

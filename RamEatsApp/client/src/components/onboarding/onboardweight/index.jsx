@@ -40,18 +40,16 @@ const OnBoardWeight = () => {
     return (
         <>
             <p>Weight</p>
-            <div>
-                <label htmlFor='weight'>lbs.</label> 
-                <input 
-                    type='number' 
-                    name='weight' 
-                    id='weight' 
-                    value={weight} 
-                    onChange={(e) => setWeight(e.target.value)} 
-                    required 
-                />
-                <button className='next' onClick={handleNextClick}>Next</button>
-            </div>
+            <label htmlFor='weight'>lbs.</label> 
+            <input 
+                type='number' 
+                name='weight' 
+                id='weight' 
+                value={weight} 
+                onChange={(e) => setWeight(e.target.value)} 
+                required 
+            />
+            <button className='next' onClick={handleNextClick}>Next</button>
         </>
     );
 }

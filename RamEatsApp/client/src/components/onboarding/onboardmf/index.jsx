@@ -46,10 +46,10 @@ const OnBoardMF = () => {
     return (
         <>
             <p>Biological Sex</p>
-            <div>
-                <button className='gender' type="button" onClick={() => handleGenderSelection('Male')}>Male</button>
-                <button className='gender' type="button" onClick={() => handleGenderSelection('Female')}>Female</button>
-            </div>
+            {/* <div> */}
+            <button className='gender' type="button" onClick={() => handleGenderSelection('Male')}>Male</button>
+            <button className='gender' type="button" onClick={() => handleGenderSelection('Female')}>Female</button>
+            {/* </div> */}
             {!submitted && (
                 <button className='next' type="button" onClick={handleSubmit}>Next</button>
             )}
