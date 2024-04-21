@@ -61,7 +61,7 @@ const Signup = () => {
                     </form>
                 </ul>
 
-                <p>Back to <a className='bottom-link'>login</a></p>
+                <p>Back to <a className='bottom-link' href='/login'>login</a></p>
             </div>
         </>
     );

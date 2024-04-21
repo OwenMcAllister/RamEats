@@ -45,10 +45,10 @@ const OnBoardGoal = () => {
 
     return (
         <>
-            <p>Biological Sex</p>
-            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('gain')}>Gain Weight</button>
-            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('lose')}>Lose Weight</button>
-            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('maintain')}>Maintain Weight</button>
+            <p>What are your weight goals?</p>
+            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('gain')}>Bulk</button>
+            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('lose')}>Cut</button>
+            <button className='fitgoal' type="button" onClick={() => handleGoalSelection('maintain')}>Maintain</button>
             {!submitted && (
                 <button className='next' type="button" onClick={handleSubmit}>Next</button>
             )}

@@ -9,7 +9,7 @@ const Home = () => {
         total_carbs: 0,
         total_fats: 0,
     });
-    const [listItems, setListItems] = useState("Loading");
+    const [listItems, setListItems] = useState(<b>Loading</b>);
 
     // Using useEffect for single rendering
     useEffect(() => {
@@ -32,7 +32,6 @@ const Home = () => {
                     </p>
                     </li>
                 )));
-                console.log(data)
             })
         );
     }, []);
