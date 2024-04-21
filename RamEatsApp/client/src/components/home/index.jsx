@@ -28,15 +28,23 @@ const Home = () => {
         );
     }, []);
 
+    const listItems = data.selected_items.map((item, index) => (
+        <li key={index}>
+        <p>
+            <b>{item[0]}:</b> {item[1]}
+        </p>
+        </li>
+    ));
+
     return (
         <>
             <div className='container home-page'>
                 {/* Calling a data from setdata for showing */}
-                <p>{data.selected_items}</p>
-                <p>{data.total_calories}</p>
-                <p>{data.total_protein}</p>
-                <p>{data.total_carbs}</p>
-                <p>{data.total_fats}</p>
+                <ul>{listItems}</ul>
+                <p>Total Calories: {data.total_calories}</p>
+                <p>Total Protein: {data.total_protein}g</p>
+                <p>Total Carbs: {data.total_carbs}g</p>
+                <p>Total Fats: {data.total_fats}g</p>
             </div>
         </>
     )
