@@ -21,6 +21,7 @@ const Home = () => {
                     selected_items: data.selected_items,
                     total_calories: data.total_calories,
                     total_protein: data.total_protein,
+                    total_carbs: data.total_carbs,
                     total_fats: data.total_fats,
                 });
             })
@@ -34,6 +35,7 @@ const Home = () => {
                 <p>{data.selected_items}</p>
                 <p>{data.total_calories}</p>
                 <p>{data.total_protein}</p>
+                <p>{data.total_carbs}</p>
                 <p>{data.total_fats}</p>
             </div>
         </>
