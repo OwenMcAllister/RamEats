@@ -31,7 +31,7 @@
                 margin-top: 10px;
                 margin-bottom: 10px;
                 color: #88C6FF;
-                background-color: whitesmoke;
+                background-color: #F5F5F5;
                 border: 0;
                 padding: 10px 10px;
                 font-size: xx-large;
@@ -41,6 +41,17 @@
                 border-radius: 25px;
                 max-width: 166.5px;
                 max-height: 58.5px;
+            }
+
+            button:hover {
+                background-color: #eee;
+                box-shadow: 3px 3px 1px;
+            }
+
+            button:active {
+                background-color: #eee;
+                box-shadow: 2px 2px 1px;
+                transform: translateY(2px);
             }
 
             input {
