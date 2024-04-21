@@ -210,7 +210,6 @@ def calcMeals():
     row = data[0]
     dailyTotCal = row["kcalTotal"]
 
-
     #load menu
     menu_data = supabase.table('DemoMenu').select("*").eq('StationName', "Simply Prepared Grill").execute()
     menu = menu_data.data
@@ -219,7 +218,7 @@ def calcMeals():
     sorted_menu = sorted(menu, key=lambda x: x["Calories"])
 
     # Define meal and macronutrient goals
-    meal_cal = dailyTotCal
+    meal_cal = int(.3 * dailyTotCal)
     meal_cal_lower = meal_cal - 50
     meal_cal_upper = meal_cal + 50
     protein_goal = 0.24 * meal_cal_upper
