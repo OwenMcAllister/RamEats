@@ -39,6 +39,10 @@ for station in active_menu_stations:
         station_menu_items.append(current_dish)
         final_cleaned_data.append({"Name": dish.find("a").text, "StationName": station.find("h4").text})
     menu_stations.append({station.find("h4").text: station_menu_items})
+    try:
+        supabase.table("Menu").insert({"StationName":station}).execute()
+    except:
+        supabase.table("Menu").insert({"StationName":"None"}).execute()
 
 recipes = []
 
