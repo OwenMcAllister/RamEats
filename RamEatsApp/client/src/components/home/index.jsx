@@ -17,6 +17,9 @@ const Home = () => {
         // flask server it will be redirected to proxy
         fetch("http://127.0.0.1:5000/api/meal").then((res) =>
             res.json().then((data) => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
                 // Setting a data from api
                 setdata({
                     selected_items: data.selected_items,
