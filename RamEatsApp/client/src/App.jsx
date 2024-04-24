@@ -25,6 +25,7 @@ function App() {
         {/* <Route path='/onboarding/gender' element={<OnBoardMF />} />
         <Route path='/onboarding/height' element={<OnBoardHeight />} /> */}
         <Route path='onboarding' element={<OnboardingLayout />} >
+          {/* Create single page for form */}
           <Route path='gender' element={<OnBoardMF/>}/>
           <Route path='height' element={<OnBoardHeight/>}/>
           <Route path='weight' element={<OnBoardWeight />} />
